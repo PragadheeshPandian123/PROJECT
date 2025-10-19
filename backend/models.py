@@ -21,6 +21,7 @@ class User(Document):
     role = StringField(required=True)  # admin, organizer, student etc.
     department = StringField(required=True)
     year = IntField(required=True)
+    phone_number = StringField()
     created_at = DateTimeField(default=datetime.utcnow)
 
     meta = {

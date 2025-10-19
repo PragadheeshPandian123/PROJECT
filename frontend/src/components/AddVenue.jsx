@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./AddVenue.css";
 
 function AddVenue() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ function AddVenue() {
     mail_id: "",
   });
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,8 +27,8 @@ function AddVenue() {
 
       const data = await res.json();
       if (data.success) {
+        setMessageType("success");
         setMessage("✅ Venue added successfully!");
-        // Reset form
         setFormData({
           venue_name: "",
           venue_description: "",
@@ -35,14 +37,15 @@ function AddVenue() {
           mail_id: "",
         });
       } else {
+        setMessageType("error");
         setMessage("⚠️ " + data.message);
       }
     } catch (error) {
+      setMessageType("error");
       setMessage("⚠️ Server error: " + error.message);
     }
   };
 
-  // Optional: auto-hide message after 3 seconds
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => setMessage(""), 3000);
@@ -51,55 +54,69 @@ function AddVenue() {
   }, [message]);
 
   return (
-    <div className="container mt-4">
-      <h2>Add Venue</h2>
+    <div className="add-venue-container">
+      <h2>Add New Venue</h2>
       {message && (
-        <div className="alert alert-info">
-          {message}
-        </div>
+        <div className={`message ${messageType}`}>{message}</div>
       )}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="venue_name"
-          placeholder="Venue Name"
-          value={formData.venue_name}
-          onChange={handleChange}
-          className="form-control mb-2"
-          required
-        />
-        <textarea
-          name="venue_description"
-          placeholder="Venue Description"
-          value={formData.venue_description}
-          onChange={handleChange}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          name="image_url"
-          placeholder="Image URL"
-          value={formData.image_url}
-          onChange={handleChange}
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          name="phone_number"
-          placeholder="Phone Number"
-          value={formData.phone_number}
-          onChange={handleChange}
-          className="form-control mb-2"
-        />
-        <input
-          type="email"
-          name="mail_id"
-          placeholder="Email ID"
-          value={formData.mail_id}
-          onChange={handleChange}
-          className="form-control mb-2"
-        />
-        <button type="submit" className="btn btn-primary">
+      <form onSubmit={handleSubmit} className="add-venue-form">
+        <div className="form-group">
+          <label>Venue Name *</label>
+          <input
+            type="text"
+            name="venue_name"
+            placeholder="Enter venue name"
+            value={formData.venue_name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Description</label>
+          <textarea
+            name="venue_description"
+            placeholder="Enter venue description"
+            value={formData.venue_description}
+            onChange={handleChange}
+            rows="4"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Image URL</label>
+          <input
+            type="url"
+            name="image_url"
+            placeholder="Enter image URL"
+            value={formData.image_url}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Phone Number</label>
+          <input
+            type="text"
+            name="phone_number"
+            placeholder="Enter phone number"
+            value={formData.phone_number}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="mail_id"
+            placeholder="Enter email"
+            value={formData.mail_id}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">
           Add Venue
         </button>
       </form>

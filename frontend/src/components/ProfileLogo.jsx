@@ -1,12 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProfileLogo = () => {
-  // Retrieve name and role from localStorage
-  let name = localStorage.getItem("name") || "Organizer";
+  const navigate = useNavigate();
+  let name = localStorage.getItem("name") || "User";
   let role = localStorage.getItem("role") || "Role";
-  role=(role==='organizer')?`Event Organizer`:role;
+  role = (role === 'organizer') ? `Event Organizer` : role.charAt(0).toUpperCase() + role.slice(1);
+  
+  const handleProfileClick = () => {
+    if (role.toLowerCase().includes('student')) {
+      navigate("/student-dashboard/edit-profile");
+    } else if (role.toLowerCase().includes('organizer')) {
+      window.alert("Feature will be added soon ");
+    }
+  };
+
   return (
-    <div className="profile-logo">
+    <div className="profile-logo" onClick={handleProfileClick} style={{ cursor: 'pointer' }}>
       <div className="avatar">{name.charAt(0).toUpperCase()}</div>
       <div className="profile-info">
         <span className="profile-name">{name}</span>

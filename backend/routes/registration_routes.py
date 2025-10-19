@@ -143,13 +143,14 @@ def check_new_registrations():
 
             if not participant:
                 participant = Participant(
-                    name=name or "",
-                    email=email or "",
-                    phone=phone or "",
-                    reg_no=reg_no or "",
-                    department=department or "",
-                    year=str(year) if year is not None else ""
+                name=str(name or "").strip(),
+                email=str(email or "").strip(),
+                phone=str(phone or "").strip(),
+                reg_no=str(reg_no or "").strip(),
+                department=str(department or "").strip(),
+                year=str(year or "").strip()
                 )
+
                 participant.save()
                 inserted_participants += 1
 
@@ -179,6 +180,7 @@ def check_new_registrations():
 
         except Exception as e:
             skipped.append({"row": row_number, "error": str(e)})
+            print(e)
             # try to mark row as Error
             if "Status" in header_to_index:
                 try:

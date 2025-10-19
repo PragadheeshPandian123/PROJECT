@@ -1,0 +1,253 @@
+.users-container {
+  padding: 20px;
+  color: #ffffff;
+}
+
+.users-container h2 {
+  color: #4caf50;
+  font-size: 28px;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.search-filter-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  align-items: center;
+  background: #1e1e2f;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-box {
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background-color: #2a2a3e;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+.search-input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+  background-color: #333344;
+}
+
+.filter-select {
+  padding: 10px 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background-color: #2a2a3e;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 150px;
+}
+
+.filter-select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+.filter-select option {
+  background-color: #2a2a3e;
+  color: #ffffff;
+}
+
+.refresh-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4caf50;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.refresh-btn:hover {
+  background-color: #43a047;
+  transform: translateY(-2px);
+}
+
+.results-info {
+  padding: 12px 15px;
+  background: #2a2a3e;
+  color: #cfd8dc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  background: #1e1e2f;
+  border-radius: 10px;
+  color: #cccccc;
+}
+
+.users-table-wrapper {
+  background: #1e1e2f;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ffffff;
+}
+
+.users-table thead {
+  background: #2a2a3e;
+}
+
+.users-table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  color: #4caf50;
+  border-bottom: 2px solid #444;
+  font-size: 0.95rem;
+}
+
+.users-table tbody tr {
+  border-bottom: 1px solid #333;
+  transition: background-color 0.2s ease;
+}
+
+.users-table tbody tr:hover {
+  background-color: #262638;
+}
+
+.users-table td {
+  padding: 12px 14px;
+  font-size: 0.9rem;
+}
+
+.name-cell {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.email-cell {
+  color: #cfd8dc;
+}
+
+.date-cell {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #ff6b6b;
+}
+
+.role-organizer {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #66bb6a;
+}
+
+.role-student {
+  background-color: rgba(33, 150, 243, 0.2);
+  color: #64b5f6;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+  color: #ffffff;
+}
+
+.edit-btn:hover {
+  background-color: #1976d2;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .search-filter-bar {
+    flex-direction: column;
+  }
+
+  .search-box,
+  .filter-select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .users-table {
+    font-size: 0.85rem;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 8px 10px;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+  }
+}
