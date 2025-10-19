@@ -1,0 +1,69 @@
+/* Dark theme custom form controls */
+.form-control-dark {
+  background-color: #2c2f33;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 0.375rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control-dark::placeholder {
+  color: #bbb;
+}
+
+.form-control-dark:focus {
+  background-color: #2c2f33;
+  color: #fff;
+  border-color: #0d6efd; /* Bootstrap primary blue */
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* Card with dark background and subtle shadow */
+.card-dark {
+  background-color: #212529; /* Bootstrap dark */
+  color: #f8f9fa;  /* text light */
+  border-radius: 0.5rem;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.6);
+}
+
+/* Center the form container with full viewport height */
+.full-vh {
+  height: 100vh;
+}
+
+/* Link styles in dark mode */
+a.text-decoration-none {
+  color: #0d6efd;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+a.text-decoration-none:hover,
+a.text-decoration-none:focus {
+  color: #66b2ff;
+  text-decoration: underline;
+}
+
+/* Button style */
+.btn-primary-dark {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.btn-primary-dark:hover,
+.btn-primary-dark:focus {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+}
+
+/* Responsive max width */
+@media (max-width: 576px) {
+  .card-dark {
+    width: 90% !important;
+  }
+}
+@media (min-width: 577px) {
+  .card-dark {
+    width: 28rem !important;
+  }
+}

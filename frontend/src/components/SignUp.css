@@ -1,0 +1,36 @@
+.signup-container {
+  overflow-y: auto; /* Allows scrolling if card exceeds viewport */
+}
+
+.signup-container input,
+.signup-container select {
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  width: 100%;
+}
+
+.signup-container input:focus,
+.signup-container select:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+}
+
+.signup-container button {
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.signup-container label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  color: #0d6efd; /* text-primary blue */
+}
+
+.signup-container label svg {
+  font-size: 1.1rem;
+}

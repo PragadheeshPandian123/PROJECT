@@ -1,0 +1,104 @@
+/* AddEvents.css */
+
+.add-event-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 25px;
+  background: #1e1e2f; /* dark card background */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-event-container h2 {
+  margin-bottom: 20px;
+  color: #4caf50; /* matching MyEvents titles */
+  text-align: center;
+}
+
+.message {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message.success {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.message.error {
+  background-color: #f44336;
+  color: #fff;
+}
+
+/* Form styling */
+.add-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Labels */
+.add-event-form label {
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+  color: #cfd8dc;
+  font-weight: 500;
+}
+
+/* Inputs & textarea & select */
+.add-event-form input,
+.add-event-form textarea,
+.add-event-form select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #2a2a3e;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.add-event-form input:focus,
+.add-event-form textarea:focus,
+.add-event-form select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+/* Textarea specific */
+.add-event-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Submit button */
+.add-event-form button {
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.add-event-form button:hover {
+  background-color: #43a047;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-event-container {
+    margin: 15px;
+    padding: 20px;
+  }
+}
