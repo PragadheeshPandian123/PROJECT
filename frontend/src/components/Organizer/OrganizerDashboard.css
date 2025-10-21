@@ -52,7 +52,7 @@
 /* Right content area */
 .organizer-content {
   flex: 1;
-  background: #270ae0; /* Light gray background */
+  background: #121212; /* Light gray background */
   padding: 20px;
   overflow-y: auto;
 }

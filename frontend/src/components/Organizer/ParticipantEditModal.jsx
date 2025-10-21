@@ -11,10 +11,12 @@ const ParticipantEditModal = ({ participant, onClose }) => {
     department: participant.department,
     year: participant.year
   });
+  const [saving, setSaving] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSave = async () => {
+    setSaving(true);
     try {
       const res = await fetch(`http://localhost:5000/api/registrations/participants/${form.participant_id}`, {
         method: "PUT",
@@ -23,32 +25,71 @@ const ParticipantEditModal = ({ participant, onClose }) => {
       });
       const data = await res.json();
       if (data.success) {
-        alert("Participant updated");
-        onClose();
+        alert("✅ Participant updated successfully");
+        onClose(true); // Pass true to indicate refresh needed
       } else {
-        alert("Update failed: " + (data.error || data.message));
+        alert("❌ Update failed: " + (data.error || data.message));
       }
     } catch (err) {
       console.error(err);
-      alert("Error updating participant");
+      alert("❌ Error updating participant");
+    } finally {
+      setSaving(false);
     }
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-box">
+    <div className="modal-overlay" onClick={() => onClose(false)}>
+      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
         <h4>Edit Participant</h4>
 
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Name" />
-        <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
-        <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" />
-        <input name="reg_no" value={form.reg_no} onChange={handleChange} placeholder="Reg No" />
-        <input name="department" value={form.department} onChange={handleChange} placeholder="Department" />
-        <input name="year" value={form.year} onChange={handleChange} placeholder="Year" />
+        <input 
+          name="name" 
+          value={form.name} 
+          onChange={handleChange} 
+          placeholder="Name *" 
+          required
+        />
+        <input 
+          name="email" 
+          value={form.email} 
+          onChange={handleChange} 
+          placeholder="Email *" 
+          type="email"
+          required
+        />
+        <input 
+          name="phone" 
+          value={form.phone} 
+          onChange={handleChange} 
+          placeholder="Phone Number" 
+        />
+        <input 
+          name="reg_no" 
+          value={form.reg_no} 
+          onChange={handleChange} 
+          placeholder="Registration Number" 
+        />
+        <input 
+          name="department" 
+          value={form.department} 
+          onChange={handleChange} 
+          placeholder="Department" 
+        />
+        <input 
+          name="year" 
+          value={form.year} 
+          onChange={handleChange} 
+          placeholder="Year" 
+        />
 
         <div className="modal-actions">
-          <button onClick={handleSave}>Save</button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={handleSave} disabled={saving}>
+            {saving ? "Saving..." : "Save"}
+          </button>
+          <button onClick={() => onClose(false)} disabled={saving}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>

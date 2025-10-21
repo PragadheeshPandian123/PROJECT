@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserAlt, FaEnvelope, FaLock, FaSignInAlt } from "react-icons/fa";
 import { useSnackbar } from "notistack";
+import "./SignIn.css";
 
 function SignIn({ setRole }) {
   const navigate = useNavigate();
@@ -27,10 +28,13 @@ function SignIn({ setRole }) {
         localStorage.setItem("name", data.name);
         setRole(data.role);
         navigate(`/${data.role}-dashboard`);
-        enqueueSnackbar("Logged In successfully!", { variant: "success" ,style: {
-    backgroundColor: "#6f42c1", 
-    color: "#fff",               
-  },});
+        enqueueSnackbar("Logged In successfully!", { 
+          variant: "success",
+          style: {
+            backgroundColor: "#4caf50", 
+            color: "#fff",               
+          },
+        });
       } else {
         setError(data.message);
       }
@@ -40,63 +44,71 @@ function SignIn({ setRole }) {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card p-4 shadow-lg" style={{ width: "28rem", borderRadius: "1rem" }}>
-        <h3 className="text-center text-dark mb-4 d-flex align-items-center justify-content-center gap-2">
-          <FaSignInAlt className="text-primary" /> <span className="text-primary" >Sign In</span>
+    <div className="signin-container">
+      {/* App Title */}
+      <div className="app-title">
+        <h1>Evently</h1>
+        <p>College Event Management System</p>
+      </div>
+
+      {/* Sign In Card */}
+      <div className="signin-card">
+        <h3 className="signin-heading">
+          <FaSignInAlt className="heading-icon" />
+          Sign In
         </h3>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaUserAlt className="me-2 text-primary" />
+            <FaUserAlt className="label-icon" />
             Registration Number
           </label>
           <input
             type="number"
-            className="form-control"
+            className="form-input"
             placeholder="Enter registration number"
             value={reg_no}
             onChange={(e) => setReg_no(e.target.value)}
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaEnvelope className="me-2 text-primary" />
+            <FaEnvelope className="label-icon" />
             Email
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-input"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaLock className="me-2 text-primary" />
+            <FaLock className="label-icon" />
             Password
           </label>
           <input
             type="password"
-            className="form-control"
+            className="form-input"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        {error && <p className="text-danger mb-3 text-center">{error}</p>}
+        {error && <p className="error-message">{error}</p>}
 
-        <button className="btn btn-primary w-100 mb-3 d-flex align-items-center justify-content-center gap-2" onClick={handleLogin}>
+        <button className="signin-button" onClick={handleLogin}>
           <FaSignInAlt /> Login
         </button>
 
-        <p className="text-center">
+        <p className="signup-link">
           Don't have an account?{" "}
-          <a href="/signup" className="text-decoration-none text-primary fw-bold">
+          <a href="/signup" className="link">
             Sign Up
           </a>
         </p>

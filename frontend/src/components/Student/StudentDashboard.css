@@ -9,7 +9,7 @@
   background: #1e1e2f;
   color: #fff;
   padding: 20px;
-  display: flex;
+  display: flex; 
   flex-direction: column;
 }
 

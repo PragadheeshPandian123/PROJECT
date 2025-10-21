@@ -1,18 +1,71 @@
-/* Container styling */
-.cards-container {
+/* Main Container */
+.participants-container {
+  padding: 20px;
+  background: linear-gradient(135deg, #12121e, #1e1e2f);
+  min-height: 100vh;
+  color: #f0f0f0;
+}
+
+/* Header Section */
+.participants-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
   flex-wrap: wrap;
+  gap: 15px;
+}
+
+.participants-header h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #4caf50;
+  letter-spacing: 1px;
+}
+
+.participants-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.participants-actions button {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.participants-actions button:hover {
+  background: #43a047;
+  transform: translateY(-2px);
+}
+
+/* No participants message */
+.no-participants {
+  text-align: center;
+  padding: 40px 20px;
+  color: #cccccc;
+  font-size: 1.1rem;
+}
+
+/* Cards Container */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   margin-top: 12px;
 }
 
-/* Card styling */
+/* Participant Card */
 .participant-card {
-  background: #2c2c3e; /* dark theme */
+  background: #2c2c3e;
   color: #f0f0f0;
-  padding: 16px;
+  padding: 18px;
   border-radius: 12px;
-  width: 260px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
@@ -26,118 +79,152 @@
 
 .participant-card h4 {
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-size: 1.2rem;
-  color: #ffffff;
+  color: #4caf50;
   border-bottom: 1px solid #444;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
 }
 
 .participant-card p {
-  margin: 4px 0;
+  margin: 6px 0;
   font-size: 0.95rem;
 }
 
-/* Card buttons */
+.participant-card p strong {
+  color: #cfd8dc;
+}
+
+/* Card Actions */
 .card-actions {
-  margin-top: 12px;
+  margin-top: 15px;
   display: flex;
   justify-content: flex-end;
-  gap: 6px;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #444;
 }
 
 .card-actions button {
-  background: #4b6cb7;
-  color: #fff;
+  padding: 7px 14px;
   border: none;
-  padding: 6px 12px;
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
 }
 
-.card-actions button:hover {
-  background: #39519f;
-  transform: translateY(-2px);
-}
-
-/* Table styling */
-table {
+/* Table Styling */
+.participants-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   margin-top: 12px;
   font-size: 0.95rem;
   color: #f0f0f0;
+  background: #1e1e2f;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-thead tr {
-  background: #3a3a55;
+.participants-table thead tr {
+  background: #2a2a3e;
 }
 
-thead th {
-  padding: 12px;
+.participants-table thead th {
+  padding: 14px 12px;
   text-align: left;
   font-weight: 600;
-  color: #ffffff;
+  color: #4caf50;
+  border-bottom: 2px solid #444;
 }
 
-tbody tr {
+.participants-table tbody tr {
   background: #2c2c3e;
   transition: background 0.2s ease, transform 0.2s ease;
+  border-bottom: 1px solid #333;
 }
 
-tbody tr:nth-child(even) {
-  background: #33334a;
+.participants-table tbody tr:nth-child(even) {
+  background: #262638;
 }
 
-tbody tr:hover {
-  background: #44445a;
+.participants-table tbody tr:hover {
+  background: #323248;
   transform: scale(1.01);
 }
 
-tbody td {
-  padding: 10px 12px;
+.participants-table tbody td {
+  padding: 12px;
   vertical-align: middle;
+  border-bottom: 1px solid #333;
 }
 
-tbody button {
-  background: #4b6cb7;
-  color: #fff;
+/* Button Styles */
+.btn {
+  padding: 7px 14px;
   border: none;
-  padding: 5px 10px;
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
 }
 
-tbody button:hover {
-  background: #39519f;
-  transform: translateY(-1px);
-}
-
-/* Header and actions container */
-div h3 {
-  margin: 0;
-  font-size: 1.4rem;
-  color: #f0f0f0;
-}
-
-div > div > button {
-  background: #4b6cb7;
+.edit-btn {
+  background: #2196f3;
   color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  margin-left: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-div > div > button:hover {
-  background: #39519f;
-  transform: translateY(-1px);
+.edit-btn:hover {
+  background: #1976d2;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background: #f44336;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .participants-table {
+    font-size: 0.9rem;
+  }
+
+  .participants-table th,
+  .participants-table td {
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .participants-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .participants-actions {
+    width: 100%;
+  }
+
+  .participants-actions button {
+    flex: 1;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hide table on mobile, show cards instead */
+  .participants-table {
+    display: none;
+  }
 }

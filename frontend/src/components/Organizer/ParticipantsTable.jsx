@@ -9,19 +9,17 @@ const ParticipantsTable = () => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingParticipant, setEditingParticipant] = useState(null);
-  const [viewMode, setViewMode] = useState("table"); // "table" | "cards"
+  const [viewMode, setViewMode] = useState("table");
 
-  // ✅ Fetch participants for this event
   const fetchRows = async () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/participants?event_id=${eventId}`
+        `http://localhost:5000/api/registrations/participants?event_id=${eventId}`
       );
       const data = await res.json();
 
       if (data.success) {
-        // backend returns { success: true, rows: [...] }
         setRows(data.rows || []);
       } else {
         alert(data.error || "Failed to load participants");
@@ -34,12 +32,10 @@ const ParticipantsTable = () => {
     }
   };
 
-  // ✅ On mount or when eventId changes
   useEffect(() => {
     if (eventId) fetchRows();
   }, [eventId]);
 
-  // ✅ Delete participant
   const handleDeleteParticipant = async (participantId) => {
     if (!window.confirm("Are you sure you want to delete this participant?"))
       return;
@@ -47,29 +43,36 @@ const ParticipantsTable = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/participants/${participantId}`,
+        `http://localhost:5000/api/registrations/participants/${participantId}`,
         { method: "DELETE" }
       );
       const data = await res.json();
 
       if (data.success) {
-        alert("Participant deleted successfully.");
-        fetchRows(); // refresh
+        alert("✅ Participant deleted successfully");
+        fetchRows();
       } else {
-        alert(data.error || "Failed to delete participant");
+        alert("❌ " + (data.error || "Failed to delete participant"));
       }
     } catch (err) {
       console.error(err);
-      alert("Error deleting participant");
+      alert("❌ Error deleting participant");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleEditClose = (shouldRefresh) => {
+    setEditingParticipant(null);
+    if (shouldRefresh) {
+      fetchRows();
     }
   };
 
   return (
     <div className="participants-container">
       <div className="participants-header">
-        <h3>Participants</h3>
+        <h3>Participants ({rows.length})</h3>
         <div className="participants-actions">
           <button onClick={fetchRows}>🔄 Refresh</button>
           <button
@@ -85,7 +88,7 @@ const ParticipantsTable = () => {
       {loading ? (
         <Loading message="Loading participants..." />
       ) : rows.length === 0 ? (
-        <p>No participants registered for this event yet.</p>
+        <p className="no-participants">No participants registered for this event yet.</p>
       ) : viewMode === "table" ? (
         <table className="participants-table">
           <thead>
@@ -105,10 +108,10 @@ const ParticipantsTable = () => {
               <tr key={r.registration_id}>
                 <td>{r.name}</td>
                 <td>{r.email}</td>
-                <td>{r.phone}</td>
-                <td>{r.reg_no}</td>
-                <td>{r.department}</td>
-                <td>{r.year}</td>
+                <td>{r.phone || "N/A"}</td>
+                <td>{r.reg_no || "N/A"}</td>
+                <td>{r.department || "N/A"}</td>
+                <td>{r.year || "N/A"}</td>
                 <td>{new Date(r.registration_time).toLocaleString()}</td>
                 <td>
                   <button
@@ -119,9 +122,7 @@ const ParticipantsTable = () => {
                   </button>
                   <button
                     className="btn delete-btn"
-                    onClick={() =>
-                      handleDeleteParticipant(r.participant_id)
-                    }
+                    onClick={() => handleDeleteParticipant(r.participant_id)}
                     style={{ marginLeft: 8 }}
                   >
                     Delete
@@ -132,29 +133,16 @@ const ParticipantsTable = () => {
           </tbody>
         </table>
       ) : (
-        <div className="participants-cards">
+        <div className="cards-container">
           {rows.map((r) => (
             <div key={r.registration_id} className="participant-card">
               <h4>{r.name}</h4>
-              <p>
-                <strong>Email:</strong> {r.email}
-              </p>
-              <p>
-                <strong>Phone:</strong> {r.phone}
-              </p>
-              <p>
-                <strong>Reg No:</strong> {r.reg_no}
-              </p>
-              <p>
-                <strong>Department:</strong> {r.department}
-              </p>
-              <p>
-                <strong>Year:</strong> {r.year}
-              </p>
-              <p>
-                <strong>Registered:</strong>{" "}
-                {new Date(r.registration_time).toLocaleString()}
-              </p>
+              <p><strong>Email:</strong> {r.email}</p>
+              <p><strong>Phone:</strong> {r.phone || "N/A"}</p>
+              <p><strong>Reg No:</strong> {r.reg_no || "N/A"}</p>
+              <p><strong>Department:</strong> {r.department || "N/A"}</p>
+              <p><strong>Year:</strong> {r.year || "N/A"}</p>
+              <p><strong>Registered:</strong> {new Date(r.registration_time).toLocaleString()}</p>
               <div className="card-actions">
                 <button
                   className="btn edit-btn"
@@ -164,9 +152,7 @@ const ParticipantsTable = () => {
                 </button>
                 <button
                   className="btn delete-btn"
-                  onClick={() =>
-                    handleDeleteParticipant(r.participant_id)
-                  }
+                  onClick={() => handleDeleteParticipant(r.participant_id)}
                   style={{ marginLeft: 8 }}
                 >
                   Delete
@@ -180,10 +166,7 @@ const ParticipantsTable = () => {
       {editingParticipant && (
         <ParticipantEditModal
           participant={editingParticipant}
-          onClose={() => {
-            setEditingParticipant(null);
-            fetchRows();
-          }}
+          onClose={handleEditClose}
         />
       )}
     </div>

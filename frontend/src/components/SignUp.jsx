@@ -16,6 +16,7 @@ function SignUp() {
   });
 
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" or "error"
 
   const handleChange = (e) => {
     setFormData({
@@ -34,26 +35,38 @@ function SignUp() {
 
       const data = await response.json();
       if (data.success) {
-        setMessage("Account created successfully! You can sign in now.");
+        setMessageType("success");
+        setMessage("✅ Account created successfully! You can sign in now.");
+        setTimeout(() => navigate("/"), 2000);
       } else {
+        setMessageType("error");
         setMessage(data.message);
       }
     } catch (err) {
+      setMessageType("error");
       setMessage("Server error, please try again.");
     }
   };
 
   return (
-    <div className="signup-container d-flex justify-content-center align-items-start py-5 bg-light" style={{ minHeight: "100vh" }}>
-      <div className="card p-4 shadow-lg" style={{ width: "28rem", borderRadius: "1rem" }}>
-        <h3 className="text-center mb-4 d-flex align-items-center justify-content-center gap-2 text-primary">
-          <FaUserAlt /> Sign Up
+    <div className="signup-container">
+      {/* App Title */}
+      <div className="app-title">
+        <h1>Evently</h1>
+        <p>College Event Management System</p>
+      </div>
+
+      {/* Sign Up Card */}
+      <div className="signup-card">
+        <h3 className="signup-heading">
+          <FaUserAlt className="heading-icon" />
+          Sign Up
         </h3>
 
         {/* Registration Number */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaUserAlt className="me-2 text-primary" />
+            <FaUserAlt className="label-icon" />
             Registration Number
           </label>
           <input
@@ -62,14 +75,14 @@ function SignUp() {
             placeholder="Enter registration number"
             value={formData.reg_no}
             onChange={handleChange}
-            className="form-control"
+            className="form-input"
           />
         </div>
 
         {/* Full Name */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaUserAlt className="me-2 text-primary" />
+            <FaUserAlt className="label-icon" />
             Full Name
           </label>
           <input
@@ -78,14 +91,14 @@ function SignUp() {
             placeholder="Enter full name"
             value={formData.name}
             onChange={handleChange}
-            className="form-control"
+            className="form-input"
           />
         </div>
 
         {/* Email */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaEnvelope className="me-2 text-primary" />
+            <FaEnvelope className="label-icon" />
             Email
           </label>
           <input
@@ -94,14 +107,14 @@ function SignUp() {
             placeholder="Enter email"
             value={formData.email}
             onChange={handleChange}
-            className="form-control"
+            className="form-input"
           />
         </div>
 
         {/* Password */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaLock className="me-2 text-primary" />
+            <FaLock className="label-icon" />
             Password
           </label>
           <input
@@ -110,14 +123,14 @@ function SignUp() {
             placeholder="Enter password"
             value={formData.password}
             onChange={handleChange}
-            className="form-control"
+            className="form-input"
           />
         </div>
 
         {/* Role */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaUserGraduate className="me-2 text-primary" />
+            <FaUserGraduate className="label-icon" />
             Role
           </label>
           <select
@@ -133,9 +146,9 @@ function SignUp() {
         </div>
 
         {/* Department */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaBuilding className="me-2 text-primary" />
+            <FaBuilding className="label-icon" />
             Department
           </label>
           <select
@@ -152,9 +165,9 @@ function SignUp() {
         </div>
 
         {/* Year */}
-        <div className="mb-3">
+        <div className="form-group">
           <label className="form-label">
-            <FaGraduationCap className="me-2 text-primary" />
+            <FaGraduationCap className="label-icon" />
             Year
           </label>
           <select
@@ -171,11 +184,15 @@ function SignUp() {
         </div>
 
         {/* Message */}
-        {message && <p className="text-center text-danger">{message}</p>}
+        {message && (
+          <p className={`message ${messageType}`}>
+            {message}
+          </p>
+        )}
 
         {/* Sign Up Button */}
         <button
-          className="btn btn-primary w-100 mb-2 d-flex align-items-center justify-content-center gap-2"
+          className="signup-button"
           onClick={handleSubmit}
         >
           <FaUserAlt /> Sign Up
@@ -183,7 +200,7 @@ function SignUp() {
 
         {/* Back to Sign In */}
         <button
-          className="btn btn-secondary w-100 d-flex align-items-center justify-content-center gap-2"
+          className="back-button"
           onClick={() => navigate("/")}
         >
           <FaArrowLeft /> Back to Sign In

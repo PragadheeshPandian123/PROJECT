@@ -1,69 +1,231 @@
-/* Dark theme custom form controls */
-.form-control-dark {
-  background-color: #2c2f33;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 0.375rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+/* Sign In Container */
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #12121e, #1e1e2f);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.form-control-dark::placeholder {
-  color: #bbb;
+/* App Title Section */
+.app-title {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeIn 0.8s ease;
 }
 
-.form-control-dark:focus {
-  background-color: #2c2f33;
-  color: #fff;
-  border-color: #0d6efd; /* Bootstrap primary blue */
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-  outline: none;
+.app-title h1 {
+  font-size: 3.5rem;
+  color: #4caf50;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
 }
 
-/* Card with dark background and subtle shadow */
-.card-dark {
-  background-color: #212529; /* Bootstrap dark */
-  color: #f8f9fa;  /* text light */
-  border-radius: 0.5rem;
-  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.6);
+.app-title p {
+  font-size: 1rem;
+  color: #cfd8dc;
+  margin-top: 8px;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
-/* Center the form container with full viewport height */
-.full-vh {
-  height: 100vh;
+/* Sign In Card */
+.signin-card {
+  background: #1e1e2f;
+  padding: 35px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid #2a2a3e;
+  animation: slideUp 0.6s ease;
 }
 
-/* Link styles in dark mode */
-a.text-decoration-none {
-  color: #0d6efd;
+/* Heading */
+.signin-heading {
+  text-align: center;
+  color: #4caf50;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.heading-icon {
+  font-size: 1.6rem;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #cfd8dc;
   font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.label-icon {
+  color: #4caf50;
+  font-size: 1rem;
+}
+
+/* Input Fields */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #444;
+  border-radius: 10px;
+  background-color: #2a2a3e;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #888;
+}
+
+.form-input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+  background-color: #2f2f42;
+}
+
+/* Remove number input arrows */
+.form-input[type="number"]::-webkit-inner-spin-button,
+.form-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Error Message */
+.error-message {
+  color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+/* Sign In Button */
+.signin-button {
+  width: 100%;
+  padding: 13px 20px;
+  background: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.signin-button:hover {
+  background: #43a047;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.signin-button:active {
+  transform: translateY(0);
+}
+
+/* Sign Up Link */
+.signup-link {
+  text-align: center;
+  color: #cfd8dc;
+  font-size: 0.95rem;
+}
+
+.link {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: 600;
   transition: color 0.2s ease;
 }
-a.text-decoration-none:hover,
-a.text-decoration-none:focus {
-  color: #66b2ff;
+
+.link:hover {
+  color: #66bb6a;
   text-decoration: underline;
 }
 
-/* Button style */
-.btn-primary-dark {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-.btn-primary-dark:hover,
-.btn-primary-dark:focus {
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
-}
-
-/* Responsive max width */
-@media (max-width: 576px) {
-  .card-dark {
-    width: 90% !important;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-@media (min-width: 577px) {
-  .card-dark {
-    width: 28rem !important;
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-title h1 {
+    font-size: 2.5rem;
+  }
+
+  .app-title p {
+    font-size: 0.9rem;
+  }
+
+  .signin-card {
+    padding: 28px 30px;
+  }
+
+  .signin-heading {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title h1 {
+    font-size: 2rem;
+  }
+
+  .signin-card {
+    padding: 25px;
   }
 }

@@ -7,8 +7,7 @@ from flask_cors import cross_origin
 reg_bp = Blueprint("reg_bp", __name__, url_prefix="/api/registrations")
 
 # -------------------------
-# Endpoint: Register directly via React form
-# Body: { "event_id": "<id>", "name": "", "email": "", "phone": "", "reg_no": "", "department": "", "year": "" }
+# Register endpoint - FIXED
 # -------------------------
 @reg_bp.route("/register", methods=["POST"])
 @cross_origin()
@@ -35,12 +34,8 @@ def register_event():
         return jsonify({"success": False, "error": "Name and Email are required"}), 400
 
     # Check or create participant
-    participant = None
-    if email:
-        participant = Participant.objects(email=email).first()
-    if not participant and reg_no:
-        participant = Participant.objects(reg_no=reg_no).first()
-
+    participant = Participant.objects(email=email).first()
+    
     if not participant:
         participant = Participant(
             name=name,
@@ -66,6 +61,10 @@ def register_event():
     )
     reg.save()
 
+    # Update event registration count
+    event.registrations_count = EventRegistration.objects(event_id=event).count()
+    event.save()
+
     return jsonify({
         "success": True,
         "message": "Registration successful!",
@@ -74,32 +73,36 @@ def register_event():
 
 
 # -------------------------
-# List all participants or filter by event
+# List participants by event
 # -------------------------
 @reg_bp.route("/participants", methods=["GET"])
 @cross_origin()
 def list_participants():
     event_id = request.args.get("event_id")
     if event_id:
-        regs = EventRegistration.objects(event_id=event_id)
-        out = []
-        for r in regs:
-            p = r.participant_id
-            out.append({
-                "registration_id": str(r.id),
-                "participant_id": str(p.id),
-                "name": p.name,
-                "email": p.email,
-                "phone": p.phone,
-                "reg_no": p.reg_no,
-                "department": p.department,
-                "year": p.year,
-                "registration_time": r.registration_time.isoformat(),
-                "status": r.status,
-                "team_name": r.team_name,
-                "additional_info": r.additional_info
-            })
-        return jsonify({"success": True, "rows": out}), 200
+        try:
+            event = Event.objects.get(id=event_id)
+            regs = EventRegistration.objects(event_id=event)
+            out = []
+            for r in regs:
+                p = r.participant_id
+                out.append({
+                    "registration_id": str(r.id),
+                    "participant_id": str(p.id),
+                    "name": p.name,
+                    "email": p.email,
+                    "phone": p.phone,
+                    "reg_no": p.reg_no,
+                    "department": p.department,
+                    "year": p.year,
+                    "registration_time": r.registration_time.isoformat(),
+                    "status": r.status,
+                    "team_name": r.team_name,
+                    "additional_info": r.additional_info
+                })
+            return jsonify({"success": True, "rows": out}), 200
+        except DoesNotExist:
+            return jsonify({"success": False, "error": "Event not found"}), 404
 
     # all participants
     parts = Participant.objects()
@@ -176,7 +179,12 @@ def list_registrations():
     event_id = request.args.get("event_id")
     qs = EventRegistration.objects
     if event_id:
-        qs = qs(event_id=event_id)
+        try:
+            event = Event.objects.get(id=event_id)
+            qs = qs(event_id=event)
+        except DoesNotExist:
+            return jsonify({"success": False, "error": "Event not found"}), 404
+    
     regs = qs.order_by('-registration_time')
     out = []
     for r in regs:
@@ -240,7 +248,14 @@ def handle_registration(reg_id):
     if request.method == "DELETE":
         try:
             r = EventRegistration.objects.get(id=reg_id)
+            event = r.event_id
             r.delete()
+            
+            # Update event registration count
+            if event:
+                event.registrations_count = EventRegistration.objects(event_id=event).count()
+                event.save()
+            
             return jsonify({"success": True, "message": "Registration deleted"}), 200
         except DoesNotExist:
             return jsonify({"success": False, "error": "Registration not found"}), 404

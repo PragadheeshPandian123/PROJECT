@@ -11,7 +11,7 @@ const ProfileLogo = () => {
     if (role.toLowerCase().includes('student')) {
       navigate("/student-dashboard/edit-profile");
     } else if (role.toLowerCase().includes('organizer')) {
-      window.alert("Feature will be added soon ");
+      navigate("/organizer-dashboard/edit-profile");
     }
   };
 

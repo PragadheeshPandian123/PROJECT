@@ -1,47 +1,172 @@
-/* Modal overlay */
+/* Modal overlay: dark semi-transparent background */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.2s ease;
 }
 
 /* Modal box */
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
+.modal1 {
+  background-color: #1e1e2f;
+  padding: 28px 32px;
+  border-radius: 12px;
+  width: 450px;
   max-width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  position: relative;
+  animation: slideUp 0.3s ease;
+  color: #ffffff;
 }
 
-.modal input {
+/* Modal scrollbar */
+.modal1::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal1::-webkit-scrollbar-thumb {
+  background-color: #4caf50;
+  border-radius: 4px;
+}
+
+.modal1::-webkit-scrollbar-track {
+  background-color: #2a2a3e;
+}
+
+/* Modal header */
+.modal1 h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  text-align: center;
+  color: #4caf50;
+  border-bottom: 2px solid #2a2a3e;
+  padding-bottom: 12px;
+}
+
+/* Input fields */
+.modal1 input,
+.modal1 textarea,
+.modal1 select {
   width: 100%;
-  padding: 8px;
-  margin: 6px 0;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #2a2a3e;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
+.modal1 input::placeholder,
+.modal1 textarea::placeholder {
+  color: #888;
+}
+
+.modal1 input:focus,
+.modal1 textarea:focus,
+.modal1 select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+/* Modal buttons container */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #2a2a3e;
 }
 
+/* Buttons */
+.modal-actions .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Submit button */
 .submit-btn {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
+  background-color: #4caf50;
+  color: #fff;
 }
 
+.submit-btn:hover:not(:disabled) {
+  background-color: #43a047;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Cancel button */
 .cancel-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
+  background-color: #555;
+  color: #fff;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background-color: #666;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+  }
+  to { 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    padding: 20px 24px;
+  }
+
+  .modal h3 {
+    font-size: 1.2rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+  }
 }

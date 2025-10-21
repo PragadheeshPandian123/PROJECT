@@ -16,8 +16,6 @@ const AddEvents = () => {
     end_time: "",
     max_participants: "",
     venue_id: "",
-    gform_link: "",
-    gspreadsheet_link: "",
     image_url: "",
     phone_number: "",
     mail_id: "",
@@ -51,27 +49,23 @@ const AddEvents = () => {
 
   // Fetch existing event data if editing
   useEffect(() => {
-    if (!eventId) {
-      return;}
+    if (!eventId) return;
 
     const fetchEvent = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/events/${eventId}`);
         const data = await res.json();
-        console.log(data);
         if (data.success && data.event) {
-          const e=data.event;
+          const e = data.event;
           setFormData({
             title: e.title || "",
             description: e.description || "",
-            category:e.category || "",
+            category: e.category || "",
             date: e.date || "",
             start_time: e.start_time || "",
             end_time: e.end_time || "",
             max_participants: e.max_participants || "",
             venue_id: e.venue_id || "",
-            gform_link: e.gform_link || "",
-            gspreadsheet_link: e.gspreadsheet_link || "",
             image_url: e.image_url || "",
             phone_number: e.phone_number || "",
             mail_id: e.mail_id || "",
@@ -119,8 +113,12 @@ const AddEvents = () => {
       return;
     }
 
-    const body = { ...formData, organizer_id: organizerId, max_participants: Number(formData.max_participants) };
-    const url = eventId 
+    const body = {
+      ...formData,
+      organizer_id: organizerId,
+      max_participants: Number(formData.max_participants),
+    };
+    const url = eventId
       ? `http://localhost:5000/api/events/${eventId}`
       : "http://localhost:5000/api/events/";
     const method = eventId ? "PUT" : "POST";
@@ -146,8 +144,6 @@ const AddEvents = () => {
             end_time: "",
             max_participants: "",
             venue_id: "",
-            gform_link: "",
-            gspreadsheet_link: "",
             image_url: "",
             phone_number: "",
             mail_id: "",
@@ -171,53 +167,46 @@ const AddEvents = () => {
       {message && <div className={`message ${messageType}`}>{message}</div>}
 
       <form className="add-event-form" onSubmit={handleSubmit}>
-  <label>Event Title *</label>
-  <input type="text" name="title" placeholder="Enter event title" value={formData.title} onChange={handleChange} />
+        <label>Event Title *</label>
+        <input type="text" name="title" placeholder="Enter event title" value={formData.title} onChange={handleChange} />
 
-  <label>Description</label>
-  <textarea name="description" placeholder="Enter event description" value={formData.description} onChange={handleChange} />
+        <label>Description</label>
+        <textarea name="description" placeholder="Enter event description" value={formData.description} onChange={handleChange} />
 
-  <label>Category</label>
-  <input type="text" name="category" placeholder="Enter category" value={formData.category} onChange={handleChange} />
+        <label>Category</label>
+        <input type="text" name="category" placeholder="Enter category" value={formData.category} onChange={handleChange} />
 
-  <label>Date *</label>
-  <input type="date" name="date" value={formData.date} onChange={handleChange} />
+        <label>Date *</label>
+        <input type="date" name="date" value={formData.date} onChange={handleChange} />
 
-  <label>Start Time *</label>
-  <input type="time" name="start_time" value={formData.start_time} onChange={handleChange} />
+        <label>Start Time *</label>
+        <input type="time" name="start_time" value={formData.start_time} onChange={handleChange} />
 
-  <label>End Time *</label>
-  <input type="time" name="end_time" value={formData.end_time} onChange={handleChange} />
+        <label>End Time *</label>
+        <input type="time" name="end_time" value={formData.end_time} onChange={handleChange} />
 
-  <label>Max Participants *</label>
-  <input type="number" name="max_participants" placeholder="Enter max participants" value={formData.max_participants} onChange={handleChange} />
+        <label>Max Participants *</label>
+        <input type="number" name="max_participants" placeholder="Enter max participants" value={formData.max_participants} onChange={handleChange} />
 
-  <label>Venue *</label>
-  <select name="venue_id" value={formData.venue_id} onChange={handleChange}>
-    <option>Select Venue</option>
-    {venues.map((v) => (
-      <option key={v.id} value={v.id}>{v.venue_name}</option>
-    ))}
-  </select>
+        <label>Venue *</label>
+        <select name="venue_id" value={formData.venue_id} onChange={handleChange}>
+          <option>Select Venue</option>
+          {venues.map((v) => (
+            <option key={v.id} value={v.id}>{v.venue_name}</option>
+          ))}
+        </select>
 
-  <label>Google Form Link</label>
-  <input type="url" name="gform_link" placeholder="Enter Google Form link" value={formData.gform_link} onChange={handleChange} />
+        <label>Image URL</label>
+        <input type="url" name="image_url" placeholder="Enter image URL" value={formData.image_url} onChange={handleChange} />
 
-  <label>Google Spreadsheet Link</label>
-  <input type="url" name="gspreadsheet_link" placeholder="Enter spreadsheet link" value={formData.gspreadsheet_link} onChange={handleChange} />
+        <label>Phone Number</label>
+        <input type="text" name="phone_number" placeholder="Enter contact phone" value={formData.phone_number} onChange={handleChange} />
 
-  <label>Image URL</label>
-  <input type="url" name="image_url" placeholder="Enter image URL" value={formData.image_url} onChange={handleChange} />
+        <label>Email ID</label>
+        <input type="email" name="mail_id" placeholder="Enter contact email" value={formData.mail_id} onChange={handleChange} />
 
-  <label>Phone Number</label>
-  <input type="text" name="phone_number" placeholder="Enter contact phone" value={formData.phone_number} onChange={handleChange} />
-
-  <label>Email ID</label>
-  <input type="email" name="mail_id" placeholder="Enter contact email" value={formData.mail_id} onChange={handleChange} />
-
-  <button type="submit">{eventId ? "Update Event" : "Create Event"}</button>
-</form>
-
+        <button type="submit">{eventId ? "Update Event" : "Create Event"}</button>
+      </form>
     </div>
   );
 };
