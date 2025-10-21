@@ -201,7 +201,7 @@ function SignUp() {
         {/* Back to Sign In */}
         <button
           className="back-button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/signin")}
         >
           <FaArrowLeft /> Back to Sign In
         </button>

@@ -1,6 +1,7 @@
 // Updated frontend/src/App.jsx
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import LandingPage from "./components/LandingPage";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp";
 import AdminDashboard from "./components/AdminDashboard";
@@ -12,7 +13,10 @@ function App() {
   return (
     <Routes>
       {/* Public route */}
-      <Route path="/" element={<SignIn setRole={setRole} />} />
+      <Route path="/" element={<LandingPage />} />
+
+      {/* Sign In Route */}
+      <Route path="/signin" element={<SignIn setRole={setRole} />} />
       
       {/* Sign UP Route */}
       <Route path="/signup" element={<SignUp />} />

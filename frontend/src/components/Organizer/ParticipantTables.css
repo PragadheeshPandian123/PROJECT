@@ -193,6 +193,24 @@
   transform: translateY(-2px);
 }
 
+/* Card Actions */
+.card-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+
+  flex-wrap: nowrap; /* prevent buttons from wrapping */
+}
+
+/* Ensure buttons stay inline */
+.card-actions button {
+  flex: 0 0 auto; /* don't stretch or shrink */
+}
+
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .participants-table {

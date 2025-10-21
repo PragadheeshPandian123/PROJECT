@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from models import Event, User, Venue
 from mongoengine import DoesNotExist
 from datetime import datetime
-
+from flask_cors import cross_origin
 event_bp = Blueprint('event_bp', __name__, url_prefix='/api/events')
 
 
@@ -10,6 +10,7 @@ event_bp = Blueprint('event_bp', __name__, url_prefix='/api/events')
 # Get all events for an organizer
 # ------------------------
 @event_bp.route('/organizer/<organizer_id>', methods=['GET'])
+@cross_origin()
 def get_my_events(organizer_id):
     try:
         organizer = User.objects.get(id=organizer_id)
@@ -29,8 +30,6 @@ def get_my_events(organizer_id):
                 "max_participants": event.max_participants,
                 "registrations_count": event.registrations_count,
                 "status": event.status,
-                "gform_link": event.gform_link,
-                "gspreadsheet_link": event.gspreadsheet_link,
                 "image_url": event.image_url,
                 "phone_number": event.phone_number,
                 "mail_id": event.mail_id,
@@ -47,6 +46,7 @@ def get_my_events(organizer_id):
 # Create new event (robust version)
 # ------------------------
 @event_bp.route('/', methods=['POST'])
+@cross_origin()
 def create_event():
     data = request.get_json()
 
@@ -85,8 +85,6 @@ def create_event():
             end_time=data['end_time'],
             max_participants=max_participants,
             status=data.get('status', 'Green'),
-            gform_link=data.get('gform_link', ''),
-            gspreadsheet_link=data.get('gspreadsheet_link', ''),
             image_url=data.get('image_url', ''),
             phone_number=data.get('phone_number', organizer.reg_no),
             mail_id=data.get('mail_id', organizer.email)
@@ -106,6 +104,7 @@ def create_event():
 
 # PUT /api/events/<event_id>
 @event_bp.route('/<event_id>', methods=['PUT'])
+@cross_origin()
 def update_event(event_id):
     data = request.get_json()
     try:
@@ -120,8 +119,6 @@ def update_event(event_id):
         event.end_time = data.get('end_time', event.end_time)
         event.max_participants = data.get('max_participants', event.max_participants)
         event.status = data.get('status', event.status)
-        event.gform_link = data.get('gform_link', event.gform_link)
-        event.gspreadsheet_link = data.get('gspreadsheet_link', event.gspreadsheet_link)
         event.image_url = data.get('image_url', event.image_url)
         event.phone_number = data.get('phone_number', event.phone_number)
         event.mail_id = data.get('mail_id', event.mail_id)
@@ -145,6 +142,7 @@ def update_event(event_id):
 
 # DELETE /api/events/<event_id>
 @event_bp.route('/<event_id>', methods=['DELETE'])
+@cross_origin()
 def delete_event(event_id):
     try:
         event = Event.objects.get(id=event_id)
@@ -157,6 +155,7 @@ def delete_event(event_id):
 
 # Get a single event by event ID
 @event_bp.route('/<event_id>', methods=['GET'])
+@cross_origin()
 def get_event(event_id):
     try:
         event = Event.objects.get(id=event_id)
@@ -173,8 +172,6 @@ def get_event(event_id):
             "max_participants": event.max_participants,
             "registrations_count": event.registrations_count,
             "status": event.status,
-            "gform_link": event.gform_link,
-            "gspreadsheet_link": event.gspreadsheet_link,
             "image_url": event.image_url,
             "phone_number": event.phone_number,
             "mail_id": event.mail_id,

@@ -64,9 +64,6 @@ class Event(Document):
 
     status = StringField(choices=('Green', 'Yellow', 'Red'))
 
-    gform_link = URLField()
-    gspreadsheet_link = URLField()
-
     image_url = URLField()
 
     phone_number = StringField()
