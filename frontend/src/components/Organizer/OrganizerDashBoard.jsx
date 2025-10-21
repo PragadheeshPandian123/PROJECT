@@ -3,6 +3,7 @@ import MyEvents from "./MyEvents";
 import AddEvents from "./AddEvents";
 import ViewVenues from "./ViewVenues";
 import ParticipantsTable from "./ParticipantsTable";
+import RegisterEvent from "./RegisterEvent"; // ✅ Import the registration page
 import ProfileLogo from "../ProfileLogo";
 import SignOutButton from "../SignOutButton";
 import "./OrganizerDashboard.css";
@@ -36,6 +37,9 @@ const OrganizerDashboard = () => {
           <Route path="add-event/:eventId" element={<AddEvents />} />
           <Route path="venues" element={<ViewVenues />} />
           <Route path="participants/:eventId" element={<ParticipantsTable />} />
+
+          {/* ✅ Register form route INSIDE the organizer dashboard */}
+          <Route path="register-event/:eventId" element={<RegisterEvent />} />
         </Routes>
       </div>
     </div>
